@@ -54,6 +54,8 @@ object PermissionUtils {
     const val WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE"
 
     const val READ_MEDIA_IMAGES = "android.permission.READ_MEDIA_IMAGES"
+    const val READ_MEDIA_VISUAL_USER_SELECTED = "android.permission.READ_MEDIA_VISUAL_USER_SELECTED"
+
     const val POST_NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS"
 
     /**
@@ -76,7 +78,7 @@ object PermissionUtils {
                     }
                 }
 
-                Permission.READ_MEDIA_IMAGES, Permission.READ_MEDIA_VIDEO -> {
+                Permission.READ_MEDIA_VISUAL_USER_SELECTED, Permission.READ_MEDIA_IMAGES, Permission.READ_MEDIA_VIDEO -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         val hint = context.getString(R.string.common_permission_image_and_video)
                         if (!permissionNames.contains(hint)) {

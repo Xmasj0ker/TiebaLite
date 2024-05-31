@@ -245,8 +245,15 @@ class EditProfileActivity : BaseActivity() {
                             listOf(
                                 PermissionUtils.READ_EXTERNAL_STORAGE
                             )
+                        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE){
+                            listOf(
+                                PermissionUtils.READ_MEDIA_IMAGES
+                            )
                         } else {
-                            listOf(PermissionUtils.READ_MEDIA_IMAGES)
+                            listOf(
+                                PermissionUtils.READ_MEDIA_IMAGES,
+                                PermissionUtils.READ_MEDIA_VISUAL_USER_SELECTED
+                            )
                         }
                         description = context.getString(R.string.tip_permission_storage)
                         onGranted = {
