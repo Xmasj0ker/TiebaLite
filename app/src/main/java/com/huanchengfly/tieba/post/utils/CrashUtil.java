@@ -24,7 +24,7 @@ public class CrashUtil {
     public static void newCrash(Context context, Throwable throwable) {
         long time = getTime(context);
         saveException(context, throwable);
-        if (System.currentTimeMillis() - time > 30 * 1000L) restart(context);
+//        if (System.currentTimeMillis() - time > 30 * 1000L) restart(context); //为方便调试可屏蔽此行
     }
 
     @Nullable

@@ -104,6 +104,7 @@ fun SubPostsPage(
     viewModel: SubPostsViewModel = pageViewModel()
 ) {
     ProvideNavigator(navigator) {
+        println("xmas-SubPostsPage, forumId:$forumId") //此处forumId为0,导致楼中楼回复失败,here
         SubPostsContent(
             viewModel = viewModel,
             forumId = forumId,
@@ -130,6 +131,7 @@ fun SubPostsSheetPage(
     viewModel: SubPostsViewModel = pageViewModel()
 ) {
     ProvideNavigator(navigator) {
+        println("xmas-SubPostsSheetPage")
         SubPostsContent(
             viewModel = viewModel,
             forumId = forumId,
@@ -361,6 +363,7 @@ internal fun SubPostsContent(
                                     .background(ExtendedTheme.colors.bottomBarSurface)
                                     .clickable {
                                         val fid = forum?.get { id } ?: forumId
+                                        println("xmas-forum?.getid:${forum?.get{id}}, forumId:$forumId")
                                         val forumName = forum?.get { name }
                                         if (!forumName.isNullOrEmpty()) {
                                             showReplyDialog(
@@ -438,6 +441,7 @@ internal fun SubPostsContent(
                                         )
                                     },
                                     onReplyClick = {
+                                        println("xmas-2, forumId:$forumId")
                                         showReplyDialog(
                                             ReplyArgs(
                                                 forumId = forumId,
@@ -504,6 +508,7 @@ internal fun SubPostsContent(
                                 )
                             },
                             onReplyClick = {
+                                println("xmas,3,forumId:$forumId")
                                 showReplyDialog(
                                     ReplyArgs(
                                         forumId = forumId,

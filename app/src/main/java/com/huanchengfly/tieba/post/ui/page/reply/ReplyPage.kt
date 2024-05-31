@@ -585,6 +585,7 @@ internal fun ReplyPageContent(
                             "回复 #(reply, ${replyUserPortrait}, ${replyUserName}) :${getText()}"
                         }
                         if (selectedImageList.isEmpty()) {
+                            println("xmas-content:$replyContent, forumId:$forumId, forumName:$forumName, threadId:$threadId, tbs:$curTbs, postId:$postId, subPostId:$subPostId, replyUserId:$replyUserId")
                             viewModel.send(
                                 ReplyUiIntent.Send(
                                     content = replyContent,

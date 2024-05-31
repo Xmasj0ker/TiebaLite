@@ -74,6 +74,7 @@ class SubPostsViewModel @Inject constructor() :
             TiebaApi.getInstance()
                 .pbFloorFlow(threadId, postId, forumId, page, subPostId)
                 .map<PbFloorResponse, SubPostsPartialChange.Load> { response ->
+                    println("xmas-forum:${response.data_?.forum?.id}, data:${response.data_}") //此处forumId正确
                     val post = checkNotNull(response.data_?.post)
                     val page = checkNotNull(response.data_?.page)
                     val forum = checkNotNull(response.data_?.forum)

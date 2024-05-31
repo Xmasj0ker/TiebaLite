@@ -9,7 +9,7 @@ plugins {
     autowire(libs.plugins.hilt.android) apply false
     autowire(libs.plugins.com.squareup.wire) apply false
 
-    autowire(libs.plugins.com.autonomousapps.dependency.analysis)
+//    autowire(libs.plugins.com.autonomousapps.dependency.analysis) //会导致app的task构建失败
 }
 
 tasks.register<Delete>("clean") {

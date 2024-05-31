@@ -48,7 +48,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        manifestPlaceholders["is_self_build"] = "$isSelfBuild"
+//        manifestPlaceholders["is_self_build"] = "$isSelfBuild"
     }
     buildFeatures {
         compose = true
@@ -190,8 +190,8 @@ dependencies {
     debugImplementation(compose.ui.tooling)
 
     // UI Tests
-    androidTestImplementation(compose.ui.test.junit4)
-    debugRuntimeOnly(compose.ui.test.manifest)
+//    androidTestImplementation(compose.ui.test.junit4)
+//    debugRuntimeOnly(compose.ui.test.manifest)
 
     implementation(androidx.constraintlayout.compose)
 
@@ -256,7 +256,7 @@ dependencies {
     implementation(com.jakewharton.butterknife)
     kapt(com.jakewharton.butterknife.compiler)
 
-    implementation(appcenter.analytics)
-    implementation(appcenter.crashes)
-    implementation(appcenter.distribute)
+//    implementation(appcenter.analytics)
+//    implementation(appcenter.crashes)
+//    implementation(appcenter.distribute)
 }
