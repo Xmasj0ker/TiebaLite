@@ -44,6 +44,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -120,6 +121,7 @@ import com.ramcosta.composedestinations.utils.currentDestinationFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -140,6 +142,8 @@ val LocalDevicePosture =
 val LocalNavController =
     staticCompositionLocalOf<NavHostController> { throw IllegalStateException("not allowed here!") }
 val LocalDestination = compositionLocalOf<DestinationSpec<*>?> { null }
+
+val lock = AtomicBoolean(false)
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialNavigationApi::class)
 @Composable
@@ -419,6 +423,8 @@ class MainActivityV2 : BaseComposeActivity() {
     @OptIn(ExperimentalMaterialNavigationApi::class)
     @Composable
     override fun Content() {
+        val coroutineScope = rememberCoroutineScope()
+
         val okSignAlertDialogState = rememberDialogState()
         ClipBoardDetectDialog()
         AlertDialog(
@@ -449,9 +455,16 @@ class MainActivityV2 : BaseComposeActivity() {
             }
         }
         onGlobalEvent<GlobalEvent.StartSelectImages> {
-            pickMediasLauncher.launch(
-                PickMediasRequest(it.id, it.maxCount, it.mediaType)
-            )
+            //发送只有一次,此处会接收两次,原因不明,上个锁先
+            if(lock.compareAndSet(false, true)){
+                coroutineScope.launch {
+                    pickMediasLauncher.launch(
+                        PickMediasRequest(it.id, it.maxCount, it.mediaType)
+                    )
+                    delay(1000)
+                    lock.set(false)
+                }
+            }
         }
         onGlobalEvent<GlobalEvent.StartActivityForResult> {
             mLaunchActivityForResultLauncher.launch(
